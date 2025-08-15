@@ -13,8 +13,7 @@
         function notifyMe() {
             var notification = new Notification("Всё работаещь?", {
                 tag: "ache-mail",
-                body: "Пора отдохнуть",
-                icon: "https://cdn-icons-png.flaticon.com/512/8279/8279643.png"
+                body: "Пора отдохнуть"
             })
         }
 
@@ -23,13 +22,17 @@
             if (!("Notification" in window)) {
                 alert("Ваш браузер не поддерживает уведомления")
             } else if (Notification.permission === "granted") {
+                console.log('granted 1')
                 setTimeout(notifyMe, 2000)
             } else if (Notification.permission !== "denied") {
+                console.log('denied 1')
                 Notification.requestPermission(function (permission) {
                     if (!('permission' in Notification)) {
                         Notification.permission = permission
+                        console.log('permission 1')
                     }
                     if (permission === "granted") {
+                        console.log('denied 2')
                         setTimeout(notifyMe, 2000)
                     }
                 })
