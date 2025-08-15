@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Push notificcation</title>
+</head>
+
+<body>
+    <input type="button" onclick="notiSet()" value="Notification" />
+    <script>
+        function notifeMe() {
+            var notification = new Notification("Всё работаещь?", {
+                tag: "ache-mail",
+                body: "Пора отдохнуть",
+                icon: "https://cdn-icons-png.flaticon.com/512/8279/8279643.png"
+            })
+        }
+
+
+        function notiSet() {
+            if (!("Notification" in window)) {
+                alert("Ваш браузер не поддерживает уведомления")
+            } else if (Notification.permission === "granted") {
+                setTimeout(notifeMe, 2000)
+            } else if (Notification.permission !== "denied") {
+                Notification.requestPermission(function (permission) {
+                    if (!('permission' in Notification)) {
+                        Notification.permission = permission
+                    }
+                    if (permission === "granted") {
+                        setTimeout(notifyMe, 2000)
+                    }
+                })
+            }
+        }
+    </script>
+</body>
+
+</html>
